@@ -1,15 +1,17 @@
 export default {
     products: [
         {
+            _id: '1',
             name: "Nike T-shirt",
             category: "T-shirts",
-            image: "images/d1.jpg",
+            image: "/images/d1.jpg",
             price: 25,
             brand: "Nike",
             rating: 4.5,
             numReviews: 30
         },
         {
+            _id: '2',
             name: "Nike T-shirt",
             category: "pants",
             image: "/images/d1.jpg",
@@ -19,6 +21,7 @@ export default {
             numReviews: 10
         },
         {
+            _id: '3',
             name: "Nike T-shirt",
             category: "shoes",
             image: "/images/d1.jpg",
@@ -28,6 +31,7 @@ export default {
             numReviews: 50
         },
         {
+            _id: '4',
             name: "Nike T-shirt",
             category: "shirts",
             image: "/images/d1.jpg",
@@ -37,6 +41,7 @@ export default {
             numReviews: 25
         },
         {
+            _id: '5',
             name: "Nike T-shirt",
             category: "shoes",
             image: "/images/d1.jpg",
