@@ -1,0 +1,25 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "backend for ecommerce web app",
+  "main": "server.js",
+  "scripts": {
+    "start:dev": "nodemon --watch backend --exec babel-node backend/server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "<htpps://www.github.com/luisFelipeEvilla/ecommerce>"
+  },
+  "author": "Luis Felipe Evilla <http://www.github.com/luisFelipeEvilla>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "chalk": "^4.1.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  }
+}
