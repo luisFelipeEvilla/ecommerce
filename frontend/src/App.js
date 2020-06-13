@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
+import data from './data';
 import './App.css';
 
 function App() {
@@ -10,94 +11,55 @@ function App() {
     document.querySelector(".sidebar").classList.remove("open");
   }
   return (
-<div className="grid-container">
-        <header className="header">
-            <div className="brand">
-                <button onClick={openMenu}>
-                    &#9776;
+    <div className="grid-container">
+      <header className="header">
+        <div className="brand">
+          <button onClick={openMenu}>
+            &#9776;
                 </button>
-                <a href="index.html">Amazona</a>
-            </div>
-            <div className="header-links">
-                <a href="cart">Cart</a>
-                <a href="sigin">Sign In</a>
-            </div>
-        </header>
-        <aside className="sidebar">
-            <h3>Shopping Categories</h3>
-            <button className="sidebar-close-button" onClick={closeMenu}>x</button>   
-            <ul>
+          <a href="index.html">Amazona</a>
+        </div>
+        <div className="header-links">
+          <a href="cart">Cart</a>
+          <a href="sigin">Sign In</a>
+        </div>
+      </header>
+      <aside className="sidebar">
+        <h3>Shopping Categories</h3>
+        <button className="sidebar-close-button" onClick={closeMenu}>x</button>
+        <ul>
+          <li>
+            <a href="index.html">Pants</a>
+          </li>
+          <li>
+            <a href="index.html">T-shirts</a>
+          </li>
+        </ul>
+      </aside>
+      <main className="main">
+        <div className="content">
+          <ul className="products">
+            {
+              data.products.map(product =>
                 <li>
-                    <a href="index.html">Pants</a>
+                  <div className="product">
+                    <img className="product-image" src={product.image} alt="product"></img>
+                    <div className="product-name">
+                      <a href="product.html">{product.name}</a>
+                    </div>
+                    <div className="product-brand">{product.brand}</div>
+                    <div className="product-price">${product.price}</div>
+                    <div className="product-rating">{product.rating} Stars ({product.numReviews} reviews) </div>
+                  </div>
                 </li>
-                <li>
-                    <a href="index.html">T-shirts</a>
-                </li>
-            </ul>
-        </aside>
-        <main className="main">
-            <div className="content">
-                <ul className="products">
-                    <li>
-                        <div className="product">
-                            <img className="product-image" src="images/d1.jpg" alt="product"></img>
-                            <div className="product-name">
-                                <a href="product.html">Nike T-Shirt</a>
-                            </div>
-                            <div className="product-brand">Nike</div>
-                            <div className="product-price">$60</div>
-                            <div className="product-rating">4.5 Stars (review) </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="product">
-                            <img className="product-image" src="images/d1.jpg" alt="product"></img>
-                            <div className="product-name">
-                                <a href="product.html">Nike T-Shirt</a>
-                            </div>
-                            <div className="product-brand">Nike</div>
-                            <div className="product-price">$60</div>
-                            <div className="product-rating">4.5 Stars (review) </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="product">
-                            <img className="product-image" src="images/d1.jpg" alt="product"></img>
-                            <div className="product-name">
-                                <a href="product.html">Nike T-Shirt</a>
-                            </div>
-                            <div className="product-brand">Nike</div>
-                            <div className="product-price">$60</div>
-                            <div className="product-rating">4.5 Stars (review) </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="product">
-                            <img className="product-image" src="images/d1.jpg" alt="product"></img>
-                            <div className="product-name">
-                                <a href="product.html">Nike T-Shirt</a>
-                            </div>
-                            <div className="product-brand">Nike</div>
-                            <div className="product-price">$60</div>
-                            <div className="product-rating">4.5 Stars (review) </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="product">
-                            <img className="product-image" src="images/d1.jpg" alt="product"></img>
-                            <div className="product-name">
-                                <a href="product.html">Nike T-Shirt</a>
-                            </div>
-                            <div className="product-brand">Nike</div>
-                            <div className="product-price">$60</div>
-                            <div className="product-rating">4.5 Stars (review) </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </main>
-        <footer className="footer">
-            All right reserved
+              )
+            }
+
+          </ul>
+        </div>
+      </main>
+      <footer className="footer">
+        All right reserved
         </footer>
     </div>
   );
