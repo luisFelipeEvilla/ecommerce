@@ -2,33 +2,36 @@ export default {
     products: [
         {
             _id: '1',
-            name: "Nike T-shirt",
-            category: "T-shirts",
-            image: "/images/d1.jpg",
-            price: 25,
-            brand: "Nike",
-            rating: 4.5,
-            numReviews: 30
-        },
-        {
-            _id: '2',
-            name: "Nike T-shirt",
-            category: "pants",
-            image: "/images/d1.jpg",
-            price: 50,
-            brand: "Nike",
-            rating: 4.5,
-            numReviews: 10
-        },
-        {
-            _id: '3',
-            name: "Nike T-shirt",
+            name: "Nike Airforce 1",
             category: "shoes",
-            image: "/images/d1.jpg",
+            image: "/images/airforce1.jpg",
             price: 80,
             brand: "Nike",
             rating: 5,
-            numReviews: 50
+            numReviews: 30,
+            countInStock: 4
+        },
+        {
+            _id: '2',
+            name: "Nike Jogger",
+            category: "pants",
+            image: "/images/jogger.jpg",
+            price: 40,
+            brand: "Adidas",
+            rating: 4.5,
+            numReviews: 10,
+            countInStock: 5
+        },
+        {
+            _id: '3',
+            name: "Adidas Superstar",
+            category: "shoes",
+            image: "/images/superstar.jpg",
+            price: 70,
+            brand: "Nike",
+            rating: 5,
+            numReviews: 50,
+            countInStock: 3
         },
         {
             _id: '4',
@@ -38,17 +41,19 @@ export default {
             price: 30,
             brand: "Nike",
             rating: 4.3,
-            numReviews: 25
+            numReviews: 25,
+            countInStock: 7
         },
         {
             _id: '5',
-            name: "Nike T-shirt",
-            category: "shoes",
-            image: "/images/d1.jpg",
-            price: 100,
+            name: "Buzo Adidas",
+            category: "jacket",
+            image: "/images/buzo.jpg",
+            price: 50,
             brand: "Nike",
             rating: 4.8,
-            numReviews: 30
+            numReviews: 30,
+            countInStock: 20
         }
     ]
 }
