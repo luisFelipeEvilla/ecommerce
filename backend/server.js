@@ -1,9 +1,29 @@
-import express from 'express';
-import data from './data';
-import chalk from 'chalk';
+const express = require('express');
+const data = require('./data');
+const chalk = require ('chalk');
+require('dotenv').config();
+const config = require ('./config');
+const mongoose = require ('mongoose');
+const userRoute = require ('./routes/userRoute');
+const bodyParser = require ('body-parser');
+const mongodbUrl = config.MONGODB_URL;
+
+try {
+    mongoose.set('useCreateIndex', true);
+    mongoose.connect(mongodbUrl, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    console.log(chalk.green("connection successfully established to the database"));
+} catch (error) {
+    console.log(error)
+}
 
 const app = express();
 const PORT = 5000;
+
+app.use(bodyParser.json());
+app.use("/api/users", userRoute);
 
 app.get("/api/products/:id", (req, res) => {
     const productId = req.params.id;

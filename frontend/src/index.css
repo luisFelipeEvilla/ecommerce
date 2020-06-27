@@ -34,7 +34,7 @@ body {
 }
 
 .header {
-  grid-area: "header";
+  grid-area: header;
   background-color: #203040;
   color: #ffffff;
   display: flex;
@@ -53,6 +53,7 @@ body {
 .header-links a {
   color: #ffffff;
   text-decoration: none;
+  margin: 1rem;
 }
 
 .header-links a:hover {
@@ -60,11 +61,11 @@ body {
 }
 
 .main {
-  grid-area: "main";
+  grid-area: main;
 }
 
 .footer {
-  grid-area: "footer";
+  grid-area: footer;
   background-color: #203040;
   color: #ffffff;
   display: flex;
@@ -233,10 +234,12 @@ a:hover {
   background-color: #f0c040;
 }
 
-/* Cart */
-.cart {
-  display: flex;
-  flex-wrap: wrap;
+.button.secondary {
+  background-color: #808080;
+}
+
+.text-center {
+  text-align: center;
 }
 
 /* Cart */
@@ -300,4 +303,35 @@ a:hover {
   flex: 1 1;
   font-size: 2.5rem;
   text-align: right;
+}
+
+/* forms */
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 32rem;
+  padding: 2rem;
+  border: .1rem #c0c0c0 solid;
+  border-radius: .5rem;
+  list-style-type: none;
+}
+
+.form-container li {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+input {
+  padding: 1rem;
+  border: .1rem #c0c0c0 solid;
+  border-radius: .5rem;
 }

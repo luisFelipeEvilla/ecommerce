@@ -26,7 +26,7 @@ function ProductScreen(props) {
     </div>
     {
       loading ? <div>Loading...</div> :
-        error ? <div>{error}</div> :
+        error ? <div>{error.response.data.msg}</div> :
           <div className="details">
             <div className="details-image">
               <img src={product.image} alt="product" ></img>

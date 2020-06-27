@@ -9,8 +9,7 @@ const listProducts = () => async (dispatch) => {
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   }
   catch (error) { 
-
-    dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
+    dispatch({ type: PRODUCT_LIST_FAIL, payload: error });
   }
 
 }
@@ -21,7 +20,7 @@ const detailsProduct = (productId) => async (dispatch) => {
     const { data } = await axios.get("/api/products/" + productId);
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data})
   } catch (error) {
-    dispatch({ type: PRODUCT_DETAILS_FAIL, payload: error.message});
+    dispatch({ type: PRODUCT_DETAILS_FAIL, payload: error});
   }
 }
 
