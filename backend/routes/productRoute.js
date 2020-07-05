@@ -28,7 +28,7 @@ router.get("/:id", async (req, res) => {
     }
 })
 
-router.post('/', isAuth, async (req, res) => {
+router.post('/', isAuth, isAdmin, async (req, res) => {
     try {
         const product = new Product({
             name: req.body.name,
@@ -38,10 +38,8 @@ router.post('/', isAuth, async (req, res) => {
             category: req.body.category,
             countInStock: req.body.countInStock,
             description: req.body.description,
-            rating: req.body.rating,
-            numReviews: req.body.numReviews,
         });
-        const newProduct = product.save((error, p) => {
+        product.save((error, p) => {
             if (error) {
                 return error
             } else {
@@ -49,7 +47,59 @@ router.post('/', isAuth, async (req, res) => {
             }
         });
     } catch (error) {
-        return res.status(500).send({ message: 'Error Creating Product' });
+        return res.status(500).send({ message: 'Error Creating Product', error});
+    }
+})
+
+router.put('/:id', isAuth, isAdmin, async (req, res) => {
+    try {
+        const productId = req.params.id
+        const product = await Product.findById(productId);
+        if (product) {
+            product.name = req.body.name;
+            product.price = req.body.price;
+            product.image = req.body.image;
+            product.brand = req.body.brand;
+            product.category = req.body.category;
+            product.countInStock = req.body.countInStock;
+            product.description = req.body.description;
+
+            await product.save((error, p) => {
+                if (error) {
+                    return error
+                } else {
+                    return res.status(200).send({ message: 'Product updated', data: p._id })
+                }
+            });
+        } else {
+            console.log(error);
+            return res.status(404).send({ message: 'Error product not found', data: productId })
+        } 
+        
+    } catch (error) {
+        return res.status(500).send({ message: 'Error updating Product', error});
+    }
+});
+
+router.delete('/:id', isAuth, isAdmin, async (req, res) => {
+    try {
+        const productId = req.params.id
+        const product = await Product.findById(productId);
+        if (product) {
+            await product.remove((error, p) => {
+                if (error) {
+                    return error
+                } else {
+                    return res.status(200).send({ message: 'Product Deleted', data: p._id })
+                }
+            });
+        } else {
+            console.log(error);
+            return res.status(404).send({ message: 'Error product not found', data: productId })
+        } 
+        
+    } catch (error) {
+        return res.status(500).send({ message: 'Error Deleting Product', error});
     }
 })
 

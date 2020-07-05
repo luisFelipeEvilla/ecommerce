@@ -4,7 +4,7 @@
   "description": "backend for ecommerce web app",
   "main": "server.js",
   "scripts": {
-    "start:dev": "nodemon --watch backend --exec babel-node backend/server.js",
+    "dev": "nodemon --watch backend --exec babel-node backend/server.js",
     "start": "node backend/server.js"
   },
   "repository": {
@@ -14,17 +14,19 @@
   "author": "Luis Felipe Evilla <http://www.github.com/luisFelipeEvilla>",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.10.1",
-    "@babel/core": "^7.10.2",
-    "@babel/node": "^7.10.1",
-    "@babel/preset-env": "^7.10.2",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.19",
-    "morgan": "^1.10.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
+    "@babel/node": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
     "nodemon": "^2.0.4"
   }
 }
