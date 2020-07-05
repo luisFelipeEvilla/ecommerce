@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-import { signup, signin } from '../actions/userActions';
+import { signup } from '../actions/userActions';
 
 function SignupScreen (props) {
     const [name, setName] = useState('');

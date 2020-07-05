@@ -1,9 +1,11 @@
 const express = require('express');
 const data = require('./data');
 const chalk = require ('chalk');
+const morgan = require('morgan');
 require('dotenv').config();
 const config = require ('./config');
 const mongoose = require ('mongoose');
+const productRoute = require('./routes/productRoute');
 const userRoute = require ('./routes/userRoute');
 const bodyParser = require ('body-parser');
 const mongodbUrl = config.MONGODB_URL;
@@ -17,28 +19,16 @@ try {
     console.log(chalk.green("connection successfully established to the database"));
 } catch (error) {
     console.log(error)
+    process.exit(1);
 }
 
 const app = express();
 const PORT = 5000;
 
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use("/api/users", userRoute);
-
-app.get("/api/products/:id", (req, res) => {
-    const productId = req.params.id;
-    const product = data.products.find(x => x._id === productId);
-    
-    if (product) {
-        res.send(product);
-    } else {
-        res.status(404).send({ msg: "Product Not Found."})
-    }
-})
-
-app.get("/api/products", (req, res) => {
-    res.send(data.products);
-})
+app.use('/api/products', productRoute);
 
 app.listen(5000, () => {
     console.log(`server it's listenning at ${chalk.green('http://localhost:' + PORT)}`)
