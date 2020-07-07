@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { saveProduct, listProducts, deleteProduct } from "../actions/productActions";
+import {
+  saveProduct,
+  listProducts,
+  deleteProduct,
+} from "../actions/productActions";
 
 function ProductsScreen(props) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -20,11 +24,11 @@ function ProductsScreen(props) {
     product,
   } = productSave;
 
-  const productDelete = useSelector((state) => state.productDelete)
+  const productDelete = useSelector((state) => state.productDelete);
   const {
-	  loadng: loadingDelete,
-	  success: successDelete,
-	  error: errorDelete
+    loadng: loadingDelete,
+    success: successDelete,
+    error: errorDelete,
   } = productDelete;
 
   const productList = useSelector((state) => state.productList);
@@ -37,8 +41,8 @@ function ProductsScreen(props) {
     setId(product._id);
     setName(product.name);
     setPrice(product.price);
-	setImage(product.image);
-	setBrand(product.brand);
+    setImage(product.image);
+    setBrand(product.brand);
     setCategory(product.category);
     setCountInStock(product.countInStock);
     setDescription(product.description);
@@ -58,7 +62,7 @@ function ProductsScreen(props) {
     e.preventDefault();
     dispatch(
       saveProduct({
-		_id: id,
+        _id: id,
         name,
         price,
         image,
@@ -71,14 +75,16 @@ function ProductsScreen(props) {
   };
 
   const DeleteHandler = (product) => {
-	dispatch(deleteProduct(product));
-  }
+    dispatch(deleteProduct(product));
+  };
 
   return (
     <div className="content content-margined">
       <div className="product-header">
         <h3>Products</h3>
-        <button  className="button primary" onClick={() => openModal({})}>Create Product</button>
+        <button className="button primary" onClick={() => openModal({})}>
+          Create Product
+        </button>
       </div>
       {modalVisible && (
         <div className="form">
@@ -89,13 +95,13 @@ function ProductsScreen(props) {
               </li>
               <li>
                 {loadingSave && <div>Loading...</div>}
-                {errorSave && <div>{errorSave.message}</div>}
+                {errorSave && <div>{errorSave}</div>}
               </li>
               <li>
                 <label htmlFor="name">Name</label>
                 <input
-				  type="text"
-				  value={name}
+                  type="text"
+                  value={name}
                   name="name"
                   id="name"
                   onChange={(e) => setName(e.target.value)}
@@ -104,8 +110,8 @@ function ProductsScreen(props) {
               <li>
                 <label htmlFor="price">Price</label>
                 <input
-				  type="text"
-				  value={price}
+                  type="text"
+                  value={price}
                   name="price"
                   id="price"
                   onChange={(e) => setPrice(e.target.value)}
@@ -114,8 +120,8 @@ function ProductsScreen(props) {
               <li>
                 <label htmlFor="brand">Brand</label>
                 <input
-				  type="text"
-				  value={brand}
+                  type="text"
+                  value={brand}
                   name="brand"
                   id="brand"
                   onChange={(e) => setBrand(e.target.value)}
@@ -124,8 +130,8 @@ function ProductsScreen(props) {
               <li>
                 <label htmlFor="description">Description</label>
                 <input
-				  type="text"
-				  value={description}
+                  type="text"
+                  value={description}
                   name="description"
                   id="description"
                   onChange={(e) => setDescription(e.target.value)}
@@ -134,8 +140,8 @@ function ProductsScreen(props) {
               <li>
                 <label htmlFor="category">Category</label>
                 <input
-				  type="text"
-				  value={category}
+                  type="text"
+                  value={category}
                   name="category"
                   id="category"
                   onChange={(e) => setCategory(e.target.value)}
@@ -144,8 +150,8 @@ function ProductsScreen(props) {
               <li>
                 <label htmlFor="countInStock">CountInStock</label>
                 <input
-				  type="text"
-				  value={countInStock}
+                  type="text"
+                  value={countInStock}
                   name="countInStock"
                   id="countInStock"
                   onChange={(e) => setCountInStock(e.target.value)}
@@ -154,8 +160,8 @@ function ProductsScreen(props) {
               <li>
                 <label htmlFor="image">Image</label>
                 <input
-				  type="text"
-				  value={image}
+                  type="text"
+                  value={image}
                   name="image"
                   id="image"
                   onChange={(e) => setImage(e.target.value)}
@@ -163,14 +169,17 @@ function ProductsScreen(props) {
               </li>
               <li>
                 <button type="submit" className="button primary">
-					{id ? "Update" : "Create"}
+                  {id ? "Update" : "Create"}
                 </button>
               </li>
-			  <li>
-				<button onClick={() => setModalVisible(false)} className="button">
-					Back
-				</button>
-			  </li>
+              <li>
+                <button
+                  onClick={() => setModalVisible(false)}
+                  className="button"
+                >
+                  Back
+                </button>
+              </li>
             </ul>
           </form>
         </div>
@@ -178,7 +187,7 @@ function ProductsScreen(props) {
       {loading ? (
         <div>loading...</div>
       ) : error ? (
-        <div> error... </div>
+        <div>{error}</div>
       ) : (
         <div className="product-list">
           <table className="table">
@@ -202,7 +211,9 @@ function ProductsScreen(props) {
                   <td>{product.brand}</td>
                   <td>
                     <button onClick={() => openModal(product)}>Edit</button>
-                    <button onClick={() => DeleteHandler(product)}>Delete</button>
+                    <button onClick={() => DeleteHandler(product)}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}

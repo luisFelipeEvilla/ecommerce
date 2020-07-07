@@ -10,6 +10,7 @@ import SignupScreen from './screens/SignupScreen';
 import { useSelector } from 'react-redux';
 
 function App() {
+  // verify user signin
   const userSignin = useSelector(state => state.userSignin);
   const { userInfo } = userSignin;
 

@@ -38,7 +38,7 @@ function SignupScreen (props) {
                 </li>
                 <li>
                     {loading && <div>Loading...</div>}
-                    {error && <div>{error.message}</div>}
+                    {error && <div>{error}</div>}
                 </li>
                 <li>
                     <label htmlFor="name">
