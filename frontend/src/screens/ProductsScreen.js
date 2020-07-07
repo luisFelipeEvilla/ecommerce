@@ -56,7 +56,7 @@ function ProductsScreen(props) {
     return () => {
       //
     };
-  }, [productSave, productDelete]);
+  }, [successSave, successDelete]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -160,11 +160,11 @@ function ProductsScreen(props) {
               <li>
                 <label htmlFor="image">Image</label>
                 <input
-                  type="text"
-                  value={image}
+                  type="file"
                   name="image"
                   id="image"
-                  onChange={(e) => setImage(e.target.value)}
+                  accept="image/*"
+                  onChange={(e) => setImage(e.target.files[0])}
                 ></input>
               </li>
               <li>

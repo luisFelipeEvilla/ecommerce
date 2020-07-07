@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("./config");
+const config = require("../config");
 
 // jwt token
 const getToken = (user) => {
@@ -40,7 +40,7 @@ const isAuth = (req, res, next) => {
 
 // verify user is admin
 const isAdmin = (req, res, next) => {
-  if (req.user && req.isAmin) {
+  if (req.user && req.user.isAdmin) {
     return next();
   } else {
     return res.status(401).send({ message: "Admin Token is not valid" });

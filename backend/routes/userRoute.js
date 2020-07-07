@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/userModel");
-const { getToken } = require("../utils");
+const { getToken } = require("../utils/authentication");
 
 // signin (existing user)
 

@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const Product = require("../models/productModel");
-const { isAuth, isAdmin } = require("../utils");
+const upload = require("../middlewares/multer");
+const { isAuth, isAdmin } = require("../utils/authentication");
+const { deleteImage } = require("../utils/images");
+const { fromString } = require("uuidv4");
 
 // get all products
 
@@ -37,12 +40,14 @@ router.get("/:id", async (req, res) => {
 
 // create new product
 
-router.post("/", isAuth, isAdmin, async (req, res) => {
+router.post("/", isAuth, upload.single("image"), isAdmin, async (req, res) => {
   try {
+    const url = req.protocol + "://" + req.get("host");
+
     const product = new Product({
       name: req.body.name,
       price: req.body.price,
-      image: req.body.image,
+      image: url + "/uploads/" + req.file.filename,
       brand: req.body.brand,
       category: req.body.category,
       countInStock: req.body.countInStock,
@@ -65,39 +70,50 @@ router.post("/", isAuth, isAdmin, async (req, res) => {
 
 // update product
 
-router.put("/:id", isAuth, isAdmin, async (req, res) => {
-  try {
-    const productId = req.params.id;
-    const product = await Product.findById(productId);
+router.put("/:id", isAuth, isAdmin, upload.single("image"), async (req, res) => {
+    try {
+      const productId = req.params.id;
+      const product = await Product.findById(productId);
+      let oldImage;
 
-    if (product) {
-      product.name = req.body.name;
-      product.price = req.body.price;
-      product.image = req.body.image;
-      product.brand = req.body.brand;
-      product.category = req.body.category;
-      product.countInStock = req.body.countInStock;
-      product.description = req.body.description;
+      if (product) {
+        product.name = req.body.name;
+        product.price = req.body.price;
+        // if the user upload a new image update it
+        if (req.file) {
+          oldImage = product.image;
 
-      await product.save((error, p) => {
-        if (error) {
-          return error;
-        } else {
-          return res
-            .status(200)
-            .send({ message: "Product updated", data: p._id });
+          const url = req.protocol + "://" + req.get("host");
+          product.image = url + "/uploads/" + req.file.filename;
         }
-      });
-    } else {
-      console.log(error);
-      return res
-        .status(404)
-        .send({ message: "Error product not found", data: productId });
+        product.brand = req.body.brand;
+        product.category = req.body.category;
+        product.countInStock = req.body.countInStock;
+        product.description = req.body.description;
+
+        await product.save((error, p) => {
+          if (error) {
+            return error;
+          } else {
+            // if the user upload a new image delete the old
+            if (req.file) {
+              deleteImage(oldImage, res);
+            }
+            return res
+              .status(200)
+              .send({ message: "Product updated", data: p._id });
+          }
+        });
+      } else {
+        return res
+          .status(404)
+          .send({ message: "Error product not found", data: productId });
+      }
+    } catch (error) {
+        return res.status(500).send({ message: "Error Deleting Product" });
     }
-  } catch (error) {
-    return res.status(500).send({ message: "Error updating Product"});
   }
-});
+);
 
 router.delete("/:id", isAuth, isAdmin, async (req, res) => {
   try {
@@ -109,6 +125,7 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
         if (error) {
           return error;
         } else {
+          deleteImage(p.image, res);
           return res
             .status(200)
             .send({ message: "Product Deleted", data: p._id });
@@ -120,7 +137,15 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
         .send({ message: "Error product not found", data: productId });
     }
   } catch (error) {
-    return res.status(500).send({ message: "Error Deleting Product"});
+    console.log("hola2");
+    if (error.code && error.code === "ENOENT") {
+      console.log("hola1");
+      return res
+      .status(200)
+      .send({ message: "Product Deleted", data: p._id });
+    } else {
+      return res.status(500).send({ message: "Error Deleting Product" });
+    }
   }
 });
 

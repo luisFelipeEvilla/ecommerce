@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const helmet = require('helmet');
 const mongoose = require("mongoose");
+const path = require('path');
 
 // routes
 const productRoute = require("./routes/productRoute");
@@ -33,6 +34,7 @@ try {
 // server setup
 const app = express();
 app.set('port', config.PORT);
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Middlewares
 if (process.env == "prod") {

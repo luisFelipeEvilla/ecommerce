@@ -47,21 +47,35 @@ const saveProduct = (product) => async (dispatch, getState) => {
       userSignin: { userInfo },
     } = getState();
 
+    // upload 
+    const form = new FormData();
+      form.append('name', product.name);
+      form.append('price', product.price);
+      form.append('image', product.image);
+      form.append('brand', product.brand);
+      form.append('category', product.category);
+      form.append('countInStock', product.countInStock);
+      form.append('description', product.description);
+
     if (product._id) {
+      form.append('_id', product._id);
+
       const { data } = await axios.put(
         "/api/products/" + product._id,
-        product,
+        form,
         {
           headers: {
             Authorization: "Bearer " + userInfo.token,
+            'content-type': 'multipart/form-data'
           },
         }
       );
       dispatch({ type: PRODUCT_SAVE_SUCESS, payload: data });
     } else {
-      const { data } = await axios.post("/api/products", product, {
+      const { data } = await axios.post("/api/products", form, {
         headers: {
           Authorization: "Bearer " + userInfo.token,
+          'content-type': 'multipart/form-data'
         },
       });
       dispatch({ type: PRODUCT_SAVE_SUCESS, payload: data });
