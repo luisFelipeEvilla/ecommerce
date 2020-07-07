@@ -1,3 +1,6 @@
+#images saved on the server
+uploads/
+
 # Logs
 logs
 *.log
