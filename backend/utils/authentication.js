@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config");
+const bcrypt = require('bcryptjs');
 
 // jwt token
 const getToken = (user) => {
@@ -47,8 +48,23 @@ const isAdmin = (req, res, next) => {
   }
 };
 
+const hashPassword = (pass) => {
+  const hash = bcrypt.hashSync(pass, 10);
+
+  return hash;
+}
+
+const checkPassword = (pass, hash) => {
+  // pass it's the password from the client
+  // hass  it's the passsword stored on the db
+  const valid = bcrypt.compareSync(pass, hash);
+
+  return valid;
+}
 module.exports = {
   getToken,
   isAuth,
   isAdmin,
+  hashPassword,
+  checkPassword
 };

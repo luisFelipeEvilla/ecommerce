@@ -1,17 +1,16 @@
 const router = require("express").Router();
 const User = require("../models/userModel");
-const { getToken } = require("../utils/authentication");
+const { getToken, hashPassword, checkPassword } = require("../utils/authentication");
 
 // signin (existing user)
 
 router.post("/signin", async (req, res) => {
   try {
     const signinUser = await User.findOne({
-      email: req.body.email,
-      password: req.body.password,
+      email: req.body.email
     });
 
-    if (signinUser) {
+    if (signinUser && checkPassword(req.body.password, signinUser.password)) {
       res.send({
         _id: signinUser.id,
         name: signinUser.name,
@@ -34,7 +33,7 @@ router.post("/signup", async (req, res) => {
     const signupUser = new User();
     signupUser.name = req.body.name;
     signupUser.email = req.body.email;
-    signupUser.password = req.body.password;
+    signupUser.password = hashPassword(req.body.password);
     signupUser.isAdmin = false;
 
     await signupUser.save();
