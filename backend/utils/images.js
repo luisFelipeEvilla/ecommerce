@@ -10,6 +10,7 @@ const deleteImage = (url, res) => {
   fs.unlink(serverImgPath, (error) => {
     //if the image don't existe in the server, ignore that
     if (error) {
+      console.log(error);
         if (error.code === "ENOENT") {
             return;
         } else {
