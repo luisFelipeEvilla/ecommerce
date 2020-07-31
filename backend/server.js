@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const helmet = require('helmet');
+const cors = require('cors');
 const mongoose = require("mongoose");
 const path = require('path');
 
@@ -44,8 +45,12 @@ if (process.env == "prod") {
 }
 app.use(bodyParser.json());
 app.use(helmet());
+app.use(cors());
 
 // routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build'))
+})
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 

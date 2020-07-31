@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { signin } from '../actions/userActions';
+import SpinningBar from '../partials/spinningBar';
 
 function SigninScreen(props) {
     const [email, setEmail] = useState('');
@@ -34,7 +35,7 @@ function SigninScreen(props) {
                   </h2>
                 </li>
                 <li>
-                    {loading && <div>Loading...</div>}
+                    {loading && SpinningBar}
                     {error && <div>{error}</div>}
                 </li>
                 <li>

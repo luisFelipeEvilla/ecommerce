@@ -5,6 +5,7 @@ import {
   listProducts,
   deleteProduct,
 } from "../actions/productActions";
+import SpinningBar from '../partials/spinningBar';
 
 function ProductsScreen(props) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -185,7 +186,7 @@ function ProductsScreen(props) {
         </div>
       )}
       {loading ? (
-        <div>loading...</div>
+        <SpinningBar></SpinningBar>
       ) : error ? (
         <div>{error}</div>
       ) : (

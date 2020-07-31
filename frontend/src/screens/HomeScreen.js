@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { listProducts } from '../actions/productActions';
+import SpinningBar from '../partials/spinningBar';
 
 function HomeScreen(props) {
     const productList = useSelector(state => state.productList);
@@ -18,7 +19,7 @@ function HomeScreen(props) {
     const handleBuy = (id) => {
         props.history.push(`/product/${id}`);
     }
-    return loading ? <div>Loading...</div> :
+    return loading ? <SpinningBar></SpinningBar> :
         error ? <div>{error}</div> :
             <ul className="products">
                 {
