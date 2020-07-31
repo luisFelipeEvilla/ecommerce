@@ -2,12 +2,16 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { productListReducer, productDetailsReducer, productSaveReducer, productDeleteReducer } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers';
-import { siginUserReducer, signupUserReducer} from './reducers/UserReducers';
+import { siginUserReducer, signupUserReducer, singoutUserReducer } from './reducers/UserReducers';
 import Cookie from 'js-cookie';
 
 // load cartItems from cookies
 const cartItems = Cookie.getJSON("cartItems") || [];
 const userInfo =  Cookie.getJSON("userInfo") || null;
+
+/**
+ * @todo combine userSignin userSignup and userSignout in one reducer with combine reducers
+ */
 
 const initialState = { cart: { cartItems }, userSignin: { userInfo }};
 const reducer = combineReducers({
@@ -16,6 +20,7 @@ const reducer = combineReducers({
     cart: cartReducer,
     userSignin: siginUserReducer,
     userSignup: signupUserReducer,
+    userSignout: singoutUserReducer,
     productSave: productSaveReducer,
     productDelete: productDeleteReducer
 })

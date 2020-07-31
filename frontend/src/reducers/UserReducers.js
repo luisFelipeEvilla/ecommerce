@@ -1,4 +1,4 @@
-const { USER_SIGNIN_REQUEST, USER_SIGNIN_SUCESS, USER_SIGNIN_FAIL, USER_SIGNUP_REQUEST, USER_SIGNUP_SUCESS, USER_SIGNUP_FAIL } = require("../constants/userConstants");
+const { USER_SIGNIN_REQUEST, USER_SIGNIN_SUCESS, USER_SIGNIN_FAIL, USER_SIGNUP_REQUEST, USER_SIGNUP_SUCESS, USER_SIGNUP_FAIL, USER_SIGNOUT_REQUEST, USER_SIGNOUT_SUCESS, USER_SIGNOUT_FAIL } = require("../constants/userConstants");
 
 function siginUserReducer(state = {}, action) {
     switch (action.type) {
@@ -26,7 +26,21 @@ function signupUserReducer(state = {}, action) {
     }
 }
 
+function singoutUserReducer(state = {}, action) {
+    switch (action.type) {
+        case USER_SIGNOUT_REQUEST:
+            return { loading: true};
+        case USER_SIGNOUT_SUCESS:
+            return {loading: false, email: action.payload, userInfo: null};
+        case USER_SIGNOUT_FAIL:
+            return { loading: false, error: action.payload}
+        default:
+            return state;
+    }
+}
+
 export {
     siginUserReducer,
-    signupUserReducer
+    signupUserReducer,
+    singoutUserReducer
 }

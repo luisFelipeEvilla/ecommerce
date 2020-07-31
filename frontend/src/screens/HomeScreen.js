@@ -14,6 +14,10 @@ function HomeScreen(props) {
             //
         };
     }, [])
+
+    const handleBuy = (id) => {
+        props.history.push(`/product/${id}`);
+    }
     return loading ? <div>Loading...</div> :
         error ? <div>{error}</div> :
             <ul className="products">
@@ -22,8 +26,9 @@ function HomeScreen(props) {
                         <li key={product._id}>
                             <div className="product">
                                 <Link to={'/product/' + product._id}>
-                                    <img className="product-image" src={product.image} alt="product" />
-
+                                    <div className="product-image-container">
+                                        <img className="product-image" src={product.image} alt="product" />
+                                    </div>
                                 </Link>
                                 <div className="product-name">
                                     <Link to={'/product/' + product._id}>{product.name}</Link>
@@ -31,6 +36,9 @@ function HomeScreen(props) {
                                 <div className="product-brand">{product.brand}</div>
                                 <div className="product-price">${product.price}</div>
                                 <div className="product-rating">{product.rating} Stars ({product.numReviews} Reviews)</div>
+                                <div className="product-buy-button-container">
+                                    <button className="buy-button" onClick={() => handleBuy(product._id)}>Buy</button>
+                                </div>
                             </div>
                         </li>)
                 }

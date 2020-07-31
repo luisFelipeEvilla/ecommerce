@@ -7,6 +7,9 @@ import {
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCESS,
   USER_SIGNUP_FAIL,
+  USER_SIGNOUT_REQUEST,
+  USER_SIGNOUT_SUCESS,
+  USER_SIGNOUT_FAIL,
 } from "../constants/userConstants";
 
 const signin = (email, password) => async (dispatch) => {
@@ -39,7 +42,7 @@ const signup = (name, email, password, repassword) => async (dispatch) => {
       dispatch({ type: USER_SIGNUP_SUCESS, payload: data });
 
       dispatch(signin(email, password));
-    } else {        
+    } else {
       dispatch({ type: USER_SIGNUP_FAIL, payload: "passwords don't match" });
     }
   } catch (error) {
@@ -48,4 +51,16 @@ const signup = (name, email, password, repassword) => async (dispatch) => {
   }
 };
 
-export { signin, signup };
+const signout = (email) => (dispatch) => {
+  console.log("no ha empezado");
+  try {
+    dispatch({ type: USER_SIGNOUT_REQUEST, payload: email });
+    Cookies.remove("userInfo");
+    dispatch({ type: USER_SIGNOUT_SUCESS, payload: email });
+  } catch (error) {
+    const message = error.response.data.message;
+    dispatch({ type: USER_SIGNOUT_FAIL, payload: message});
+  }
+};
+
+export { signin, signup, signout };

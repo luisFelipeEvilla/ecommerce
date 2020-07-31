@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { detailsProduct } from '../actions/productActions';
+import { FaLongArrowAltLeft } from 'react-icons/fa'
 
 function ProductScreen(props) {
   const [qty, setQty] = useState(1);
@@ -20,9 +21,14 @@ function ProductScreen(props) {
     props.history.push("/cart/" + props.match.params.id + "?qty=" + qty);
   }
 
-  return <div>
-    <div className="back-to-result">
-      <Link to="/">Back to result</Link>
+  const handleBackToResults = () => {
+    props.history.push("/");
+  }
+
+  return <div className="product-container">
+    <div onClick={handleBackToResults} className="button back-to-results">
+        <FaLongArrowAltLeft></FaLongArrowAltLeft>
+          Back to results
     </div>
     {
       loading ? <div>Loading...</div> :
@@ -31,22 +37,22 @@ function ProductScreen(props) {
             <div className="details-image">
               <img src={product.image} alt="product" ></img>
             </div>
+            <div className="details-info-action-container">
             <div className="details-info">
               <ul>
                 <li>
                   <h4>{product.name}</h4>
                 </li>
                 <li>
+                  <p className="detail-info-description">
+                    {product.description}
+                  </p>
+                </li>
+                <li>
                   {product.rating} Stars ({product.numReviews} Reviews)
           </li>
                 <li>
                   Price: <b>${product.price}</b>
-                </li>
-                <li>
-                  Description:
-            <div>
-                    {product.description}
-                  </div>
                 </li>
               </ul>
             </div>
@@ -70,6 +76,7 @@ function ProductScreen(props) {
                   }
                 </li>
               </ul>
+            </div>
             </div>
 
           </div>
