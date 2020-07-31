@@ -50,10 +50,9 @@ app.use(cors());
 // routes
 if (process.env == "prod") {
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "build"));
+    res.sendFile(path.join(__dirname, "public", "build", "index.html"));
   });
 }
-
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 
