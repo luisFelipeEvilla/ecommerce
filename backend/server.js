@@ -48,9 +48,6 @@ app.use(helmet());
 app.use(cors());
 
 // routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'build'));
-})
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 
