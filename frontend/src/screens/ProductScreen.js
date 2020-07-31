@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { detailsProduct } from '../actions/productActions';
 import { FaLongArrowAltLeft } from 'react-icons/fa'
+import SpinningBar from '../partials/spinningBar';
 
 function ProductScreen(props) {
   const [qty, setQty] = useState(1);
@@ -31,7 +32,7 @@ function ProductScreen(props) {
           Back to results
     </div>
     {
-      loading ? <div>Loading...</div> :
+      loading ? <SpinningBar></SpinningBar> :
         error ? <div>{error}</div> :
           <div className="details">
             <div className="details-image">
