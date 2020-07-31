@@ -38,7 +38,7 @@ app.set("port", config.PORT);
 app.use(express.static(path.join(__dirname, "public")));
 
 // Middlewares
-if (process.env == "prod") {
+if (process.NODE_ENV == "prod") {
   app.use(morgan("common"));
 } else {
   app.use(morgan("dev"));
@@ -48,12 +48,9 @@ app.use(helmet());
 app.use(cors());
 
 // routes
-if (process.env == "prod") {
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "build"));
-  });
-}
-
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "build", "index.html"));
+});
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 
