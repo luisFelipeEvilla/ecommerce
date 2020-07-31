@@ -48,12 +48,18 @@ app.use(helmet());
 app.use(cors());
 
 // routes
+<<<<<<< HEAD
 if (process.env == "prod") {
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "build"));
   });
 }
 
+=======
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'build'));
+})
+>>>>>>> fece197bb3bdbd0f32ce0f3e84878bc504dbeeba
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 
